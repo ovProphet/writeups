@@ -202,7 +202,7 @@ ssize_t read(int fd, void *buf, size_t count);
 // read() attempts to read up to count bytes from file descriptor fd into the buffer starting at buf.
 ```
 
-If we use the given address of real password as a second parameter and stdin (fd = 0) as a first parameter, we can overwrite it and make it match our own first input, which is comprised of all the necessary parameters. It results in a successful comparison of both passwords and getting awarded with the flag.
+If we use the given address of real password as a second parameter and stdin (fd = 0) as a first parameter, we can overwrite real password and make it match our own first input, which is comprised of all the necessary parameters. It results in a successful comparison of both passwords and getting awarded with the flag.
 
 ```python
 # solution in python
