@@ -90,7 +90,7 @@ As we've seen from experiments and as we see now from the source code, the progr
 3. It reads our password from stdin.
 4. It reads the real password from "./password".
 5. It compares both passwords and then:
-    5.1 If they are equal, it calls the lisa function.
+	5.1 If they are equal, it calls the lisa function.
 	5.2 Otherwise, it calls the fail function, which takes another user input and then goes up the stack to "return 0".
 
 What draws our attention here is the function lisa: if we call lisa, we will get the flag. But to do so, we must know the correct password, mustn't we?
