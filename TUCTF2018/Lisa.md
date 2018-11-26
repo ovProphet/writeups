@@ -95,6 +95,7 @@ As we've seen from experiments and as we see now from the source code, the progr
 
 What draws our attention here is the function lisa: if we call lisa, we will get the flag. But to do so, we must know the correct password, mustn't we?
 Well, it's hard to say when we look just at the source code. As we remember, we've succeeded to cause a segmentation fault. Let's do it again but this time with gdb. 
+
 Having been given long input like 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', the program goes from "fail" back to "checkPass" and then tries to return to main. This is when something interesting happens:
 
 ```
@@ -135,6 +136,7 @@ gdb-peda$ x/xw 0xffffd330
 ```
 
 Next instruction to be executed is located at 0x56555d61 (example with randomization turned off). But if we check in disassembler, we will see that the instruction following "call checkPass" should be located at 0x56555d22.
+
 If we remember that we are asked exactly 29 bytes in fail function, the reason for this result becomes clear on close examination of the stack layout:
 
 ```
@@ -168,6 +170,7 @@ gdb-peda$ x/s 0xffffd334
 
 It means that our first input follows just the return address to "main", one byte of which we can overwrite with our second input. 
 The problem here is that by overwriting return address we cannot go to the lisa function because its address ends with something like "xx|xx|x8|02" while we are restricted to the addresses matching "xx|xx|xD|XX". 
+
 Okay, now where shall we return?
 
 ```
@@ -188,6 +191,7 @@ Okay, now where shall we return?
 ```
 
 My first guess was to return to the "ret" instruction of main, which, being followed by the actual address of lisa, will get us the flag. It works okay without randomization, but with it - no, it doesn't work.
+
 But if we return to the "call read" instruction, we can overwrite any memory (almost) with any bytes because we control the values following stored EIP at stack, which are going to be arguments for read().
 
 ```c
