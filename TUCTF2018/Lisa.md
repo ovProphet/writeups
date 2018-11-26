@@ -94,7 +94,7 @@ As we've seen from experiments and as we see now from the source code, the progr
     2. Otherwise, it calls the fail function, which takes another user input and then goes up the stack to "return 0".
 
 What draws our attention here is the function lisa: if we call lisa, we will get the flag. But to do so, we must know the correct password, mustn't we?
-Well, it's hard to say when we look just at the source code. As we remember, we've succeeded to cause a segmentation fault. Let's do it again but this time with gdb.
+Well, it's hard to say when we look just at the source code. As we remember, we've succeeded to cause a segmentation fault. Let's do it again but this time with gdb. 
 Having been given long input like 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', the program goes from "fail" back to "checkPass" and then tries to return to main. This is when something interesting happens:
 
 ```
