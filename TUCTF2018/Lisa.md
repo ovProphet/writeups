@@ -135,7 +135,7 @@ gdb-peda$ x/xw 0xffffd330
 0xffffd330:	0x56555d61
 ```
 
-Next instruction to be executed is located at 0x56555d61 (example with randomization turned off). But if we check in disassembler, we will see that the instruction following "call checkPass" should be located at 0x56555d22.
+Next instruction to be executed is located at 0x56555d61 (example with randomization turned off). But if we check in disassembler, we will see that the instruction following "call checkPass" should be located at 0x56555d22. Code for 'a' is 0x61. 0x56555d22. 0x61. 0x56555d61. Hmm.
 
 If we remember that we are asked exactly 29 bytes in fail function, the reason for this result becomes clear on close examination of the stack layout:
 
